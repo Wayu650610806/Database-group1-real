@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'picture',
     ];
 
     /**
@@ -33,15 +33,40 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Relationships
+     */
+
+    // Member Information (One-to-One with foreign key user_id)
+    // public function memberInformation()
+    // {
+    //     return $this->hasOne(MemberInformation::class, 'user_id');
+    // }
+
+    // // Cart (One-to-One with foreign key user_id)
+    // public function cart()
+    // {
+    //     return $this->hasOne(Cart::class, 'user_id');
+    // }
+
+    // // Wish List (One-to-One with foreign key user_id)
+    // public function wishList()
+    // {
+    //     return $this->hasOne(WishList::class, 'user_id');
+    // }
+
+    // // Orders (One-to-Many with foreign key user_id)
+    // public function orders()
+    // {
+    //     return $this->hasMany(Order::class, 'user_id');
+    // }
 }
