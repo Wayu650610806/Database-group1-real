@@ -9,12 +9,24 @@ class Order extends Model
 {
     use HasFactory;
     protected $table = 'Order'; 
-    protected $fillable = ['User id', 'Order id','date','Product id','Product amoust','Total price']; 
+    protected $primaryKey = 'order_id';
+    protected $fillable = [
+        'user_id', 
+        //'Product id',
+        //'product_amount',
+        'total_price'
+    ]; 
+    protected $cast = [
+        'date' => 'datetime',
+        'create_at' => 'datetime',
+        'updated_at' = > 'datetime'
+    ]
+    
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     // // Relation to Product model (assuming many-to-one relationship)
     // public function product()

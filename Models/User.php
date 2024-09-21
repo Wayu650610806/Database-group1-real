@@ -15,11 +15,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
-        'name',
+        'fisrt_name',
+        'last_name',
         'email',
         'password',
-        'picture',
+        'address',
+        'birthdate',
+        'profile_photo',
     ];
 
     /**
@@ -41,6 +46,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     // Orders (One-to-Many with foreign key user_id)
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
+    }
 
     /**
      * Relationships
@@ -64,9 +75,5 @@ class User extends Authenticatable
     //     return $this->hasOne(WishList::class, 'user_id');
     // }
 
-    // // Orders (One-to-Many with foreign key user_id)
-    // public function orders()
-    // {
-    //     return $this->hasMany(Order::class, 'user_id');
-    // }
+   
 }

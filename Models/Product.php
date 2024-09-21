@@ -9,14 +9,19 @@ class Product extends Model
 {
     use HasFactory; 
     protected $table = 'products'; 
-    protected $fillable = ['product_id', 'price','stock','name']; 
+    protected $primaryKey = 'product_id';
+    protected $fillable = [
+        'name',
+        'price',
+        'stock'
+    ]; 
     protected $casts = [ 
-    'created_at' => 'datetime', 
-    'updated_at' => 'datetime', 
-        ]; 
-        public function productEntries(){ 
-        return $this->belongsToMany(DiaryEntry::class, 'diary_entry_emotions') 
-                       ->withPivot('intensity') 
-                       ->withTimestamps(); 
-       } 
+        'created_at' => 'datetime', 
+        'updated_at' => 'datetime', 
+    ]; 
+    //     public function productEntries(){ 
+    //     return $this->belongsToMany(DiaryEntry::class, 'diary_entry_emotions') 
+    //                    ->withPivot('intensity') 
+    //                    ->withTimestamps(); 
+    //    } 
 }

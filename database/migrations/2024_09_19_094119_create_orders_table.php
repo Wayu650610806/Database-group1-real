@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreignId('product_id')->references('product_id')->on('products');
-            $table->int()
-            $table->int('product_amount');
-
-            $table->int('product_price')->references('price')->on('products');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            //$table->foreignId('product_id')->constrained('products')->onDelete('cascade')
+            $table->double('total_price');
+            //$table->int('product_price')->references('price')->on('products');
             $table->timestamps();
         });
     }
