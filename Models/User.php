@@ -18,8 +18,7 @@ class User extends Authenticatable
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'fisrt_name',
-        'last_name',
+        'name',
         'email',
         'password',
         'address',
@@ -53,27 +52,17 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id');
     }
 
-    /**
-     * Relationships
-     */
+    public function products_in_cart()
+    {
+        return $this->belongsToMany(Product::class, 'cart_entry' , 'user_id' , 'product_id')
+        ->withPivot('total_price');
+        ->withPivot('product_amount');
+        ->withTimestamps();
+    }
 
-    // Member Information (One-to-One with foreign key user_id)
-    // public function memberInformation()
-    // {
-    //     return $this->hasOne(MemberInformation::class, 'user_id');
-    // }
-
-    // // Cart (One-to-One with foreign key user_id)
-    // public function cart()
-    // {
-    //     return $this->hasOne(Cart::class, 'user_id');
-    // }
-
-    // // Wish List (One-to-One with foreign key user_id)
-    // public function wishList()
-    // {
-    //     return $this->hasOne(WishList::class, 'user_id');
-    // }
-
-   
+    public function products_in_wish_list()
+    {
+        return $this->belongsToMany(Product::class, 'wish_list_entry' , 'user_id' , 'product_id')
+        ->withTimestamps();
+    }
 }
